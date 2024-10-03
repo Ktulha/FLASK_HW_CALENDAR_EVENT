@@ -1,10 +1,10 @@
 from flask import Flask, request
 
+from routes import bp_calendar_event
+
 app = Flask(__name__)
 
-@app.route("/",methods=['GET','POST','PUT','DELETE'])
-def hello():
-    return request.content_type
+app.register_blueprint(bp_calendar_event)
 
 if __name__ == "__main__":
     app.run()
