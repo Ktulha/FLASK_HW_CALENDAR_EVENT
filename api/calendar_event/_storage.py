@@ -26,13 +26,13 @@ class Calendar_Events_Storage:
   def _list(self)->list[Calendar_Event]:
     return list(self._storage.values())
   
-  def _update(self,_id:str,_topic,_context):
+  def _update(self,_id:str,_topic:str,_context:str):
     if _id not in  self._storage:
       raise StorageExceptions(f"Event {_id} not found")
     self._storage[_id]._topic=_topic
     self._storage[_id]._context=_context
     
-  def  _delete(self,_id):
+  def  _delete(self,_id:str):
     if  _id not in self._storage:
       raise StorageExceptions(f"Event {_id} not found")
     del  self._storage[_id]
