@@ -1,6 +1,6 @@
 
 class CalendarEvent:
-    id:str
+    _id:str
     date:str
     topic:str
     content:str

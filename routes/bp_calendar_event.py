@@ -13,8 +13,8 @@ _logic=CalendarEventLogic()
 
 def _from_raw(raw_data) -> CalendarEvent:
     parts=raw_data.split('|')
-    if len(raw_data) != 3:
-        raise CalendarEventError('Invalid data')
+    if len(parts) != 3:
+        raise CalendarEventError(f'Invalid data {raw_data}')
     _event=CalendarEvent()
     _event.date=parts[0]
     _event.topic=parts[1]
@@ -22,7 +22,7 @@ def _from_raw(raw_data) -> CalendarEvent:
     return  _event
 
 def _to_raw(_event: CalendarEvent) -> str:
-    return f'{_event.id}{_event.date}|{_event.topic}|{_event.content}'
+    return f'{_event._id}|{_event.date}|{_event.topic}|{_event.content}'
 
     
         
@@ -31,38 +31,45 @@ def _to_raw(_event: CalendarEvent) -> str:
 calendar_event_route=Blueprint('calendar_event_route',__name__,url_prefix='/api/v1/calendar')
 
 @calendar_event_route.route('/',methods=['GET','POST'])
-def list_and_create() :
+def list_and_create():
     if request.method=='GET':
         try:
-            return _logic._list()
+            return "\n".join(_to_raw(_event) for _event in _logic._list())
+            
         except Exception  as e:
-            raise  CalendarEventError(str(e)) from e
+            return  f"Error: {e}"
     elif  request.method=='POST':
         try:
-            return _logic._create(_from_raw(request.get_data()))
+            _id= _logic._create(_from_raw(request.get_data().decode('utf-8') ))
+            return  f'Created { _id }',200
+
         except Exception  as e:
-            raise  CalendarEventError(str(e)) from e
+            return  f"Error: {e}",404
 
 
 
 
 @calendar_event_route.route('/<_id>',methods=['GET','PUT','DELETE'])
-def read_update_delete(_id):
+def read_update_delete(_id:str):
     if request.method=='GET':
         try:
             return  _logic._read(_id)
         except Exception  as e:
-            raise  CalendarEventError(str(e)) from e
+            return  f"Error: {e}",404
     elif request.method=='PUT':
         try:
-            return _logic._update(_id,_from_raw(request.get_data()))
+            _logic._update(_id,_from_raw(request.get_data().decode('utf-8')))
+            return   f'Updated { _id }',200
+
         except  Exception  as e:
-            raise   CalendarEventError(str(e)) from e
+            return  f"Error: {e}",404
     elif request.method=='DELETE':
         try:
-            return _logic._delete(_id)
+             _logic._delete(_id)
+             return f'Event id:  {_id} deleted',200
+
         except  Exception  as e:
-            raise  CalendarEventError(str(e)) from e
+            return  f"Error: {e}",404
         
 
         
