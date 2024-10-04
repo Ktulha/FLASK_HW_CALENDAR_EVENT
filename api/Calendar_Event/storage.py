@@ -1,15 +1,16 @@
 from model.calendar_event import CalendarEvent
 
+_id_iterator=0
+_events={}
+_dates=[]
+    
 class StorageException(Exception):
     """Base class for all storage-related exceptions."""
     pass
 
 class CalendarEventStorage:
     def __init__(self):
-        _id_iterator=0
-        _events={}
-        _dates=[]
-    
+
     def _create(self,_event:CalendarEvent)->str:
         """Create a new event and return its id"""
         if _event.date in _dates:
