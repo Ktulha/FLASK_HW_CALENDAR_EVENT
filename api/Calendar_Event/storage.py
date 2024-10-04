@@ -7,6 +7,33 @@ class StorageException(Exception):
     pass
 
 class CalendarEventStorage:
+    """
+    A storage class for calendar events.
+
+    This class provides methods to create, read, update, and delete calendar events.
+    It also ensures that each event date is unique.
+
+    Attributes:
+        _id_iterator (int): An iterator to generate unique IDs for events.
+        _events (dict): A dictionary to store events with their IDs as keys.
+        _dates (dict): A dictionary to store event dates with their IDs as values.
+
+    Methods:
+        _create(_event: CalendarEvent) -> str:
+            Create a new event and return its ID.
+
+        _read(_id: str) -> CalendarEvent:
+            Read an event by its ID.
+
+        _list() -> list[CalendarEvent]:
+            Return a list of all events.
+
+        _update(_id: str, _event: CalendarEvent):
+            Update an event by its ID.
+
+        _delete(_id: str):
+            Delete an event by its ID.
+    """
     def __init__(self) -> None:
        self._id_iterator=0
        self._events={}

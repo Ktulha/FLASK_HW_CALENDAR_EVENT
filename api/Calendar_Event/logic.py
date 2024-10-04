@@ -1,6 +1,3 @@
-from api.Calendar_Event._db import DB_Calendar_Event
-from model.calendar_event import CalendarEvent
-from datetime  import datetime
 """
 This module defines constants used for validating calendar event properties.
 
@@ -10,7 +7,36 @@ Constants:
     TOPIC_LIMIT (int): The maximum allowed length for the topic of a calendar event.
     CONTENT_LIMIT (int): The maximum allowed length for the content of a calendar event.
     DATE_FORMAT (str): The expected date format for calendar events.
+
+Class:
+    LogicError(Exception): A custom exception class for logic errors.
+
+Class:
+    CalendarEventLogic:
+        A class that provides methods for creating, reading, listing, updating, and deleting calendar events.
+
+        Attributes:
+            _db (DB_Calendar_Event): An instance of the DB_Calendar_Event class, used for database operations.
+
+        Methods:
+            __init__() -> None: Initializes the CalendarEventLogic instance with a DB_Calendar_Event instance.
+
+            _validate_event(_event: CalendarEvent) -> None: Validates a calendar event, checking its topic, content, and date format.
+
+            _create(_event: CalendarEvent) -> str: Creates a new calendar event and returns its ID.
+
+            _read(_id: str) -> CalendarEvent: Retrieves a calendar event by its ID.
+
+            _list() -> list[CalendarEvent]: Retrieves a list of all calendar events.
+
+            _update(_id: str, _event: CalendarEvent) -> str: Updates an existing calendar event and returns its ID.
+
+            _delete(_id: str) -> None: Deletes a calendar event by its ID.
 """
+from api.Calendar_Event._db import DB_Calendar_Event
+from model.calendar_event import CalendarEvent
+from datetime  import datetime
+
 TOPIC_LIMIT=30
 CONTENT_LIMIT=200
 DATE_FORMAT="%Y-%m-%d"
