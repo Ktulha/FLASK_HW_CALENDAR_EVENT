@@ -1,7 +1,7 @@
-from flask import Flask, request
+from flask import Flask
+
+from routes.bp_calendar_event import calendar_event_route
 
 app = Flask(__name__)
 
-@app.route("/",methods=['GET','POST','PUT','DELETE'])
-def hello():
-    return 'request.content_type'
+app.register_blueprint(calendar_event_route)
