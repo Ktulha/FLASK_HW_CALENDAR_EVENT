@@ -6,7 +6,7 @@ class DB_Exception(Exception):
 
 class Calendar_Events_DB:
   def __init__(self):
-    self._storage=Calendar_Events_Storage
+    self._storage=Calendar_Events_Storage()
   
   def _create(self,_event:Calendar_Event)->str:
     try:
@@ -23,9 +23,9 @@ class Calendar_Events_DB:
       return self._storage._list()
     except  Exception as ex:
       raise   DB_Exception(f"Error listing events: {ex}")
-  def _update(self,_id:str,_topic:str,_content:str):
+  def _update(self,_id:str,_event:Calendar_Event):
     try:
-      return  self._storage._update(_id,_topic,_content)
+      return  self._storage._update(_id,_event)
     except   Exception as ex:
       raise   DB_Exception(f"Error updating event: {ex}")
   def  _delete(self,_id:str):

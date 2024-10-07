@@ -11,7 +11,7 @@ class Calendar_Events_Storage:
     
   def _create(self,_event:Calendar_Event)->str:
     if _event._date in self._dates:
-      raise  StorageExceptions("Event date is  already in storage")
+      raise  StorageExceptions(f"Event date {_event._date} is already in storage")
     self._id_iterator+=1
     _event._id=str(self._id_iterator)
     self._storage[_event._id]=_event
@@ -26,11 +26,10 @@ class Calendar_Events_Storage:
   def _list(self)->list[Calendar_Event]:
     return list(self._storage.values())
   
-  def _update(self,_id:str,_topic:str,_context:str):
+  def _update(self,_id:str,_event:Calendar_Event):
     if _id not in  self._storage:
       raise StorageExceptions(f"Event {_id} not found")
-    self._storage[_id]._topic=_topic
-    self._storage[_id]._context=_context
+    self._storage[_id]=_event
     
   def  _delete(self,_id:str):
     if  _id not in self._storage:

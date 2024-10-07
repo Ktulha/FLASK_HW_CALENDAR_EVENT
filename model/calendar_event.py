@@ -3,4 +3,3 @@ class Calendar_Event:
   _date:str
   _topic:str
   _content:str
-    
