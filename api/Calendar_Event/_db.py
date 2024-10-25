@@ -1,5 +1,5 @@
 from model.calendar_event import CalendarEvent
-from api.Calendar_Event.storage import CalendarEventStorage
+from api.calendar_event.storage import CalendarEventStorage
 
 
 class DBException(Exception):

@@ -33,7 +33,7 @@ Class:
 
             _delete(_id: str) -> None: Deletes a calendar event by its ID.
 """
-from api.Calendar_Event._db import DB_Calendar_Event
+from api.calendar_event._db import DB_Calendar_Event
 from model.calendar_event import CalendarEvent
 from datetime  import datetime
 

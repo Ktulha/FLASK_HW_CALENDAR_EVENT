@@ -3,7 +3,7 @@ from flask import Blueprint, request
 
 from model.calendar_event import CalendarEvent
 
-from api.Calendar_Event.logic import CalendarEventLogic
+from api.calendar_event.logic import CalendarEventLogic
 
 class CalendarEventError(Exception):
     """Base class for all exceptions in this module"""
